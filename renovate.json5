@@ -16,8 +16,9 @@
     {
       "matchMessage": "/^Custom manager fetcher/",
       "newLogLevel": "trace"
-    }
+    },
   ],
+  "logLevel": "trace",
   "forkProcessing": "enabled",
   "schedule": ["at any time"],
 }
