@@ -8,7 +8,7 @@
       "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/awsdocs/amazon-eks-user-guide/refs/heads/mainline/latest/ug/networking/managing-vpc-cni.adoc",
       "format": "plain",
       "transformTemplates": [
-        '{"releases": $map(releases.version.$match(/v\d+\.\d+\.\d+-eksbuild\.\d+/), function($v) { {"version": $v.match} })}'
+        "{\"releases\": $map(releases.version.$match(/v\\d+\\.\\d+\\.\\d+-eksbuild\\.\\d+/), function($v) { {\"version\": $v.match} })}"
       ]
     }
   },
