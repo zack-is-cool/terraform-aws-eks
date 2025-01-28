@@ -26,5 +26,6 @@
       "newLogLevel": "trace"
     }
   ],
-  "forkProcessing": "enabled"
+  "forkProcessing": "enabled",
+  "schedule": ["at any time"],
 }
