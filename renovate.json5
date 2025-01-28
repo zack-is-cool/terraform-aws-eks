@@ -8,16 +8,15 @@
       "defaultRegistryUrlTemplate": "https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html",
       "format": "html",
       "transformTemplates": [
-        // Return a hard-coded releases array
-        "{\"releases\":[{\"version\":\"1.2.3\"}]}"
+        "{\"releases\": $map($match($responseBody, /v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+/), function($m) { {\\\"version\\\": $m.match} })}"
       ]
     }
   },
   "logLevelRemap": [
     {
-      "matchMessage": "/custom/",
+      "matchMessage": "/*./",
       "newLogLevel": "trace"
-    },
+    }
   ],
   "forkProcessing": "enabled",
   "schedule": ["at any time"],
