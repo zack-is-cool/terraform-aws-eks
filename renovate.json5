@@ -6,7 +6,7 @@
   "customDatasources": {
     "awsVpcCni": {
       "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/awsdocs/amazon-eks-user-guide/refs/heads/mainline/latest/ug/networking/managing-vpc-cni.adoc",
-      "format": "plain",
+      "format": "html",
       "transformTemplates": [
         "{\"releases\": $map($match($responseBody, /v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+/), function($m){ {\\\"version\\\": $m.match} })}"
       ]
@@ -15,10 +15,6 @@
   "logLevelRemap": [
     {
       "matchMessage": "/fail/",
-      "newLogLevel": "trace"
-    },
-    {
-      "matchMessage": "/plain/",
       "newLogLevel": "trace"
     }
   ],
@@ -43,12 +39,6 @@
 
       // Usually you want semver for AWS versions
       "versioningTemplate": "semver"
-    }
-  ],
-  "hostRules": [
-    {
-      "hostType": "http",
-      "matchHost": "docs.aws.amazon.com"
     }
   ]
 }
