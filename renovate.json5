@@ -20,4 +20,25 @@
   ],
   "forkProcessing": "enabled",
   "schedule": ["at any time"],
+  "customManagers": [
+    {
+      // Which files to parse
+      "fileMatch": [
+        // Adjust as needed. For example: all .tf or .tfvars
+        "(^|/).*\\.tfvars$"
+      ],
+      // Regex to find your pinned version in the code
+      // e.g. `addon_version = "v1.19.0-eksbuild.1"`
+      "matchStrings": [
+        "addon_version\\s*=\\s*\"(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+)\""
+      ],
+
+      // Tells Renovate to use the "awsVpcCni" custom datasource above
+      "datasourceTemplate": "custom",
+      "depNameTemplate": "awsVpcCni",
+
+      // Usually you want semver for AWS versions
+      "versioningTemplate": "semver"
+    }
+  ],
 }
