@@ -35,10 +35,8 @@
 
       // Tells Renovate to use the "awsVpcCni" custom datasource above
       "datasourceTemplate": "custom.awsVpcCni",
-      "depNameTemplate": "awsVpcCni",
+      "depNameTemplate": "awsVpcCni"
 
-      // Usually you want semver for AWS versions
-      "versioningTemplate": "semver"
     }
   ]
 }
