@@ -8,7 +8,6 @@
       "defaultRegistryUrlTemplate": "https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html",
       "format": "html",
       "transformTemplates": [
-        // This string is a JSON document with embedded JSONata:
         "{
           \"releases\": $map(
             $match($responseBody, /v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+/g),
