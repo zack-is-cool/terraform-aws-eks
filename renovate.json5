@@ -6,9 +6,9 @@
   "customDatasources": {
     "awsVpcCni": {
       "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/awsdocs/amazon-eks-user-guide/refs/heads/mainline/latest/ug/networking/managing-vpc-cni.adoc",
-      "format": "html",
+      "format": "plain",
       "transformTemplates": [
-        "{\"releases\": $map($match($responseBody, /v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+/), function($m){ {\\\"version\\\": $m.match} })}"
+        "{\"releases\": $map(releases.version.$match(/v\\d+\\.\\d+\\.\\d+-eksbuild\\.\\d+/), function($v) { {\"version\": $v.match} })}"
       ]
     }
   },
