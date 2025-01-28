@@ -71,7 +71,8 @@ cluster_version = "1.30"
 # add other "eks native" marketplace addons and configs to this list
 cluster_addons = {
   vpc-cni = {
-    most_recent          = true
+    most_recent          = false
+    addon_version        = "v1.19.0-eksbuild.1"
     before_compute       = true
     configuration_values = <<-JSON
       {
