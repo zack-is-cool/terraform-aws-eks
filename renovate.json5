@@ -25,5 +25,6 @@
       "matchMessage": "/^Custom manager fetcher/",
       "newLogLevel": "trace"
     }
-  ]
+  ],
+  "forkProcessing": "enabled"
 }
