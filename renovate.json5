@@ -14,7 +14,11 @@
   },
   "logLevelRemap": [
     {
-      "matchMessage": "/*./",
+      "matchMessage": "/fail/",
+      "newLogLevel": "trace"
+    },
+    {
+      "matchMessage": "/plain/",
       "newLogLevel": "trace"
     }
   ],
