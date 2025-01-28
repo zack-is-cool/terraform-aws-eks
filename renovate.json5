@@ -5,10 +5,10 @@
   ],
   "customDatasources": {
     "awsVpcCni": {
-      "defaultRegistryUrlTemplate": "https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html",
-      "format": "html",
+      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/awsdocs/amazon-eks-user-guide/refs/heads/mainline/latest/ug/networking/managing-vpc-cni.adoc",
+      "format": "plain",
       "transformTemplates": [
-        "{\"releases\": $map($match($responseBody, /v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+/), function($m) { {\\\"version\\\": $m.match} })}"
+        "{\"releases\": $map($match($responseBody, /v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+/), function($m){ {\\\"version\\\": $m.match} })}"
       ]
     }
   },
