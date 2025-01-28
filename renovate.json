@@ -1,0 +1,30 @@
+{
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>defenseunicorns/narwhal-delivery-renovate-config:terraformReposAuto.json5"
+  ],
+  "customDatasources": {
+    "awsVpcCni": {
+      "defaultRegistryUrlTemplate": "https://docs.aws.amazon.com/eks/latest/userguide/managing-vpc-cni.html",
+      "format": "html",
+      "transformTemplates": [
+        // This string is a JSON document with embedded JSONata:
+        "{
+          \"releases\": $map(
+            $match($responseBody, /v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+/g),
+            function($v) {
+              {\"version\": $v}
+            }
+          )
+        }"
+      ]
+    }
+  },
+  "logLevelRemap": [
+    {
+      "matchMessage": "/^Custom manager fetcher/",
+      "newLogLevel": "trace"
+    }
+  ],
+  "forkProcessing": "enabled"
+}
