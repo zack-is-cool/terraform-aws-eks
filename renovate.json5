@@ -1,35 +1,36 @@
 {
-  $schema: 'https://docs.renovatebot.com/renovate-schema.json',
-  extends: [
-    'github>defenseunicorns/narwhal-delivery-renovate-config:terraformReposAuto.json5',
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
+  "extends": [
+    "github>defenseunicorns/narwhal-delivery-renovate-config:terraformReposAuto.json5"
   ],
-  customDatasources: {
-    awsVpcCni: {
-      defaultRegistryUrlTemplate: 'https://raw.githubusercontent.com/awsdocs/amazon-eks-user-guide/refs/heads/mainline/latest/ug/networking/managing-vpc-cni.adoc',
-      format: 'plain',
-      transformTemplates: [
-        '{"releases": $map(releases.version.$match(/v\\d+\\.\\d+\\.\\d+-eksbuild\\.\\d+/), function($v) { {"version": $v.match} })}',
-      ],
-    },
+  "customDatasources": {
+    "awsVpcCni": {
+      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/awsdocs/amazon-eks-user-guide/refs/heads/mainline/latest/ug/networking/managing-vpc-cni.adoc",
+      "format": "plain",
+      "transformTemplates": [
+        "{\"releases\": $map(releases.version.$match(/v\\d+\\.\\d+\\.\\d+-eksbuild\\.\\d+/), function($v) { {\"version\": $v.match} })}"
+      ]
+    }
   },
-  logLevelRemap: [
+  "logLevelRemap": [
     {
-      matchMessage: '/.*/',
-      newLogLevel: 'trace',
-    },
+      "matchMessage": "/.*/",
+      "newLogLevel": "trace"
+    }
   ],
-  forkProcessing: 'enabled',
-  schedule: [
-    'at any time',
-  ],
-  customManagers: [
+  "forkProcessing": "enabled",
+  "schedule": ["at any time"],
+  "customManagers": [
     {
-      customType: 'regex',
-      fileMatch: [
-        '(^|/).*\\.tfvars$',
+      // Which files to parse
+      "fileMatch": [
+        // Adjust as needed. For example: all .tf or .tfvars
+        "(^|/).*\\.tfvars$"
       ],
-      matchStrings: [
-        'addon_version\\s*=\\s*"(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+)"',
+      // Regex to find your pinned version in the code
+      // e.g. `addon_version = "v1.19.0-eksbuild.1"`
+      "matchStrings": [
+        "addon_version\\s*=\\s*\"(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+)\""
       ],
 
       // Tells Renovate to use the "awsVpcCni" custom datasource above
