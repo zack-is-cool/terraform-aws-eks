@@ -31,8 +31,13 @@
       matchStrings: [
         'addon_version\\s*=\\s*"(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+)"',
       ],
-      datasourceTemplate: 'custom.awsVpcCni',
-      depNameTemplate: 'awsVpcCni',
-    },
-  ],
+
+      // Tells Renovate to use the "awsVpcCni" custom datasource above
+      "datasourceTemplate": "custom.awsVpcCni",
+      "depNameTemplate": "awsVpcCni",
+
+      // Usually you want semver for AWS versions
+      "versioningTemplate": "semver-coerced"
+    }
+  ]
 }
