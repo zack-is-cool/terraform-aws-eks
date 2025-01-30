@@ -20,10 +20,13 @@
   "customManagers": [
     {
       "fileMatch": ["(^|/).*\\.tfvars$"],
-      // see https://regex101.com/r/Kjv2mb/1
       "matchStrings": [
-        "(?<depName>[A-Za-z0-9-_]+)\\s*=\\s*\\{[^}]*addon_version\\s*=\\s*\"(?<currentValue>v[^\"]+)\""
+        "(?<depName>vpc-cni|coredns|kube-proxy|aws-ebs-csi-driver|aws-efs-csi-driver)\\s*=\\s*\\{[^}]*addon_version\\s*=\\s*\"(?<currentValue>v[^\"]+)\""
       ],
+      // // see https://regex101.com/r/Kjv2mb/1
+      // "matchStrings": [
+      //   "(?<depName>[A-Za-z0-9-_]+)\\s*=\\s*\\{[^}]*addon_version\\s*=\\s*\"(?<currentValue>v[^\"]+)\""
+      // ],
       "datasourceTemplate": "custom.eks-addons",
       "depNameTemplate": "{{{depName}}}",
       "versioningTemplate": "loose"
