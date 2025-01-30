@@ -38,7 +38,7 @@
       "depNameTemplate": "vpc-cni",
 
       // Usually you want semver for AWS versions
-      "versioningTemplate": "semver-coerced"
+      "versioningTemplate": "loose"
     }
   ]
 }
