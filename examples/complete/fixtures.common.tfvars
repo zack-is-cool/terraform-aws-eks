@@ -97,10 +97,12 @@ cluster_addons = {
     }
   }
   kube-proxy = {
-    most_recent = true
+    most_recent   = false
+    addon_version = "v1.31.2-eksbuild.3"
   }
   aws-ebs-csi-driver = {
-    most_recent          = true
+    most_recent          = false
+    addon_version        = "v1.38.1-eksbuild.1"
     configuration_values = <<-JSON
       "defaultStorageClass": {
         "enabled": true
@@ -113,7 +115,8 @@ cluster_addons = {
   }
   # consider using '"useFIPS": "true"' under configuration_values for aws_efs_csi_driver
   aws-efs-csi-driver = {
-    most_recent = true
+    most_recent   = false
+    addon_version = "v2.1.3-eksbuild.1"
     timeouts = {
       create = "10m"
       delete = "10m"
