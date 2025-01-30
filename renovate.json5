@@ -4,11 +4,11 @@
     "github>defenseunicorns/narwhal-delivery-renovate-config:terraformReposAuto.json5"
   ],
   "customDatasources": {
-    "awsVpcCni": {
-      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/awsdocs/amazon-eks-user-guide/refs/heads/mainline/latest/ug/networking/managing-vpc-cni.adoc",
-      "format": "plain",
+    "vpc-cni": {
+      "defaultRegistryUrlTemplate": "file://dependencies/eks-addons-versions.json",
+      "format": "json",
       "transformTemplates": [
-        "{\"releases\": $map(releases.version.$match(/v\\d+\\.\\d+\\.\\d+-eksbuild\\.\\d+/), function($v) { {\"version\": $v.match} })}"
+        "{\"releases\": $map($.addons[addonName='vpc-cni'].addonVersions, function($v){ {\\\"version\\\": $v.addonVersion} })}"
       ]
     }
   },
@@ -33,9 +33,9 @@
         "addon_version\\s*=\\s*\"(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+)\""
       ],
 
-      // Tells Renovate to use the "awsVpcCni" custom datasource above
-      "datasourceTemplate": "custom.awsVpcCni",
-      "depNameTemplate": "awsVpcCni",
+      // Tells Renovate to use the "vpc-cni" custom datasource above
+      "datasourceTemplate": "custom.vpc-cni",
+      "depNameTemplate": "vpc-cni",
 
       // Usually you want semver for AWS versions
       "versioningTemplate": "semver-coerced"
