@@ -12,7 +12,14 @@
         // "{\"releases\": $map($$.(addons[addonName='vpc-cni'].addonVersions[]), function($v){ {\"version\": $v.addonVersion} })}"
         "{\"releases\": $.addons[addonName = \"vpc-cni\"].addonVersions[].{\"version\": addonVersion}}"
       ]
-
+    },
+    "coredns": {
+      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/zack-is-cool/terraform-aws-eks/refs/heads/main/dependencies/eks-addons-versions.json",
+      "format": "json",
+      "transformTemplates": [
+        // Same JSON file, but we filter for coredns
+        "{\"releases\": $.addons[addonName = \"coredns\"].addonVersions[].{\"version\": addonVersion}}"
+      ]
     }
   },
   "logLevelRemap": [
@@ -25,22 +32,33 @@
   "schedule": ["at any time"],
   "customManagers": [
     {
-      // Which files to parse
-      "fileMatch": [
-        // Adjust as needed. For example: all .tf or .tfvars
-        "(^|/).*\\.tfvars$"
-      ],
-      // Regex to find your pinned version in the code
-      // e.g. `addon_version = "v1.19.0-eksbuild.1"`
+      // This manager looks for a pinned version in the "vpc-cni" block
+      "fileMatch": ["(^|/).*\\.tfvars$"],
+      // For lines like:
+      // vpc-cni = {
+      //   addon_version = "v1.19.0-eksbuild.1"
+      // }
       "matchStrings": [
-        "addon_version\\s*=\\s*\"(?<currentValue>\\S+)\""
+        "vpc-cni\\s*=\\s*\\{[^}]*addon_version\\s*=\\s*\"(?<currentValue>v[^\"]+)\""
       ],
-
-      // Tells Renovate to use the "vpc-cni" custom datasource above
+      // It uses the custom datasource named "vpc-cni"
       "datasourceTemplate": "custom.vpc-cni",
       "depNameTemplate": "vpc-cni",
-
-      // Usually you want semver for AWS versions
+      "versioningTemplate": "loose"
+    },
+    {
+      // This manager looks for a pinned version in the "coredns" block
+      "fileMatch": ["(^|/).*\\.tfvars$"],
+      // For lines like:
+      // coredns = {
+      //   addon_version = "v1.11.4-eksbuild.1"
+      // }
+      "matchStrings": [
+        "coredns\\s*=\\s*\\{[^}]*addon_version\\s*=\\s*\"(?<currentValue>v[^\"]+)\""
+      ],
+      // It uses the custom datasource named "coredns"
+      "datasourceTemplate": "custom.coredns",
+      "depNameTemplate": "coredns",
       "versioningTemplate": "loose"
     }
   ]

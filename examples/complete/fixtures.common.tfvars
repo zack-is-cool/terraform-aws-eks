@@ -89,7 +89,8 @@ cluster_addons = {
     JSON
   }
   coredns = {
-    most_recent = true
+    most_recent   = false
+    addon_version = "v1.11.4-eksbuild.1"
     timeouts = {
       create = "10m"
       delete = "10m"
