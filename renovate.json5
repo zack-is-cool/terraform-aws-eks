@@ -8,66 +8,23 @@
   "schedule": ["at any time"],
   "customDatasources": {
     "eks-addons": {
-      // All addons share the same URL
       "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/zack-is-cool/terraform-aws-eks/refs/heads/main/dependencies/eks-addons-versions.json",
       "format": "json",
-      // Here is the key: we reference the "packageName" placeholder
-      // so we don't need separate datasources for each addon.
       "transformTemplates": [
+        // Use {{{packageName}}} to filter by the captured depName
         "{ \"releases\": $.addons[addonName = \"{{{packageName}}}\"].addonVersions[].{\"version\": addonVersion} }"
       ]
     }
   },
+
   "customManagers": [
     {
-      // vpc-cni
       "fileMatch": ["(^|/).*\\.tfvars$"],
       "matchStrings": [
-        "vpc-cni\\s*=\\s*\\{[^}]*addon_version\\s*=\\s*\"(?<currentValue>v[^\"]+)\""
-      ],
-      // Use the single datasource, specify our dep name as "vpc-cni"
-      "datasourceTemplate": "custom.eks-addons",
-      "depNameTemplate": "vpc-cni",
-      "versioningTemplate": "loose"
-    },
-    {
-      // coredns
-      "fileMatch": ["(^|/).*\\.tfvars$"],
-      "matchStrings": [
-        "coredns\\s*=\\s*\\{[^}]*addon_version\\s*=\\s*\"(?<currentValue>v[^\"]+)\""
+        "(?<depName>[a-z0-9-]+)\\s*=\\s*\\{[^}]*addon_version\\s*=\\s*\"(?<currentValue>v[^\"]+)\""
       ],
       "datasourceTemplate": "custom.eks-addons",
-      "depNameTemplate": "coredns",
-      "versioningTemplate": "loose"
-    },
-    {
-      // kube-proxy
-      "fileMatch": ["(^|/).*\\.tfvars$"],
-      "matchStrings": [
-        "kube-proxy\\s*=\\s*\\{[^}]*addon_version\\s*=\\s*\"(?<currentValue>v[^\"]+)\""
-      ],
-      "datasourceTemplate": "custom.eks-addons",
-      "depNameTemplate": "kube-proxy",
-      "versioningTemplate": "loose"
-    },
-    {
-      // aws-ebs-csi-driver
-      "fileMatch": ["(^|/).*\\.tfvars$"],
-      "matchStrings": [
-        "aws-ebs-csi-driver\\s*=\\s*\\{[^}]*addon_version\\s*=\\s*\"(?<currentValue>v[^\"]+)\""
-      ],
-      "datasourceTemplate": "custom.eks-addons",
-      "depNameTemplate": "aws-ebs-csi-driver",
-      "versioningTemplate": "loose"
-    },
-    {
-      // aws-efs-csi-driver
-      "fileMatch": ["(^|/).*\\.tfvars$"],
-      "matchStrings": [
-        "aws-efs-csi-driver\\s*=\\s*\\{[^}]*addon_version\\s*=\\s*\"(?<currentValue>v[^\"]+)\""
-      ],
-      "datasourceTemplate": "custom.eks-addons",
-      "depNameTemplate": "aws-efs-csi-driver",
+      "depNameTemplate": "{{{depName}}}",
       "versioningTemplate": "loose"
     }
   ]
