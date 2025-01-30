@@ -30,7 +30,7 @@
       // Regex to find your pinned version in the code
       // e.g. `addon_version = "v1.19.0-eksbuild.1"`
       "matchStrings": [
-        "addon_version\\s*=\\s*\"(?<currentValue>v[0-9]+\\.[0-9]+\\.[0-9]+-eksbuild\\.[0-9]+)\""
+        "addon_version\\s*=\\s*\"(?<currentValue>\\S+)\""
       ],
 
       // Tells Renovate to use the "vpc-cni" custom datasource above
