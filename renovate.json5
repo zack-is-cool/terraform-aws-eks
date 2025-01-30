@@ -9,11 +9,10 @@
       "format": "json",
       "transformTemplates": [
         // Single-step JSONata expression wrapped in a JSON string:
-        "{\"releases\": $map($$.(addons[addonName='vpc-cni'].addonVersions[]), function($v){ {\\\"version\\\": $v.addonVersion} })}"
+        // "{\"releases\": $map($$.(addons[addonName='vpc-cni'].addonVersions[]), function($v){ {\"version\": $v.addonVersion} })}"
+        "{\"releases\": $.addons[addonName = \"vpc-cni\"].addonVersions[].{\"version\": addonVersion}}"
       ]
-      // "transformTemplates": [
-      //   "{\"releases\":[{\"version\":\"test-1.2.3\"}]}"
-      // ]
+
     }
   },
   "logLevelRemap": [
