@@ -1,32 +1,9 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
-    "github>defenseunicorns/narwhal-delivery-renovate-config:terraformReposAuto.json5"
+    "github>defenseunicorns/narwhal-delivery-renovate-config:terraformReposAuto.json5",
+    "github>defenseunicorns/narwhal-delivery-renovate-config:eksMarketplaceAddons.json5"
   ],
-
   "forkProcessing": "enabled",
-  "schedule": ["at any time"],
-  "customDatasources": {
-    "eks-addons": {
-      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/zack-is-cool/terraform-aws-eks/refs/heads/main/dependencies/eks-addons-versions.json",
-      "format": "json",
-      "transformTemplates": [
-        // Use {{{packageName}}} to filter by the captured depName
-        "{ \"releases\": $.addons[addonName = \"{{{packageName}}}\"].addonVersions[].{\"version\": addonVersion} }"
-      ]
-    }
-  },
-
-  "customManagers": [
-    {
-      "fileMatch": ["(^|/).*\\.tfvars$"],
-      // see https://regex101.com/r/Kjv2mb/1
-      "matchStrings": [
-        "(?<depName>[A-Za-z0-9-_]+)\\s*=\\s*\\{[^}]*addon_version\\s*=\\s*\"(?<currentValue>v[^\"]+)\""
-      ],
-      "datasourceTemplate": "custom.eks-addons",
-      "depNameTemplate": "{{{depName}}}",
-      "versioningTemplate": "loose"
-    }
-  ]
+  "schedule": ["at any time"]
 }
